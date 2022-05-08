@@ -19,7 +19,7 @@ If not, see <https://www.gnu.org/licenses/>. 
 from .piru import *
 
 __all__ = [
-    pipeline, job,
-    before_all, after_all,
-    before_each, after_each
+    'pipeline', 'job',
+    'before_all', 'after_all',
+    'before_each', 'after_each'
 ]
