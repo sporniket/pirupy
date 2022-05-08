@@ -1,3 +1,22 @@
+"""
+PIRUPY : A PIpeline RUnner for PYthon
+
+PIRUPY use a logger named 'pipeline_runner'
+
+---
+(c) 2022 David SPORN
+---
+This file is part of PIRUPY.
+
+PIRUPY is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+
+PIRUPY is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with PIRUPY.
+If not, see <https://www.gnu.org/licenses/>. 
+"""
 # PIpeline RUnner -- (c)2022 David SPORN
 # GPL3
 ########################################
@@ -28,12 +47,17 @@ def register_func(registry:list, func, stage:str=''):
 # class annotation
 def pipeline(_func=None, *, stages: tuple):
     """
-    The annotated function is the entry point to run the pipeline, and should
-    return a dictionnary with environment objects to be used throughout the pipeline.
-
-    It MUST be unique in the python application, in other words, the application is the pipeline.
+    Annotation to decorate a function that is the entry point to run the pipeline.
 
     The pipeline is defined by a sequence of 'stages', a stage is just a name to be targeted by jobs and job hooks.
+
+    The annotated function : MUST be unique in the python application ; MUST return a dictionnary with environment
+    objects to be used throughout the pipeline, or `None`.
+
+    Parameters :
+    _func  -- the decorated function
+    *
+    stages -- a tuble of stage names (strings).
     """
     LOGGER.debug(f"Register pipeline stages : {stages}")
     # TODO registers the sequence of stages
@@ -73,9 +97,14 @@ def pipeline(_func=None, *, stages: tuple):
 
 def job(_func=None, **kwargs):
     """
-    An actual job for the pipeline.
+    Annotation to decorate a function that is an actual job for the pipeline.
 
     A job can be attached to a specific stage, otherwise it is performed at each stage.
+
+    Parameters
+    _func -- the decorated function
+    *
+    stage -- (optionnal) the stage name to which this job is attached to.
     """
     LOGGER.debug("Register job")
     def decorator(func):
