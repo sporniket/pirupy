@@ -1,6 +1,7 @@
 # PIRUPY : A PIpeline RUnner for PYthon
 
 [![Branch status](https://img.shields.io/github/checks-status/sporniket/pirupy/main)](https://github.com/sporniket/pirupy/actions/workflows/python-package.yml)
+[![Download status](https://img.shields.io/pypi/dm/pirupy-by-sporniket)](https://pypi.org/project/pirupy-by-sporniket/)
 
 Inspired by :
 
