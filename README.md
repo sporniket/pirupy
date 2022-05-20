@@ -23,7 +23,7 @@ PIRUPY was inspired by :
 
 PIRUPY use a logger named 'pipeline_runner'
 
-##Requirements on annotaded functions
+## Requirements on annotaded functions
 
 Jobs and hooks functions are provided with a keyword argument `env`, a dictionnary containing resources to
 be used to perform the job and the hooks.
