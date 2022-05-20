@@ -114,6 +114,7 @@ Each jobs execution (that includes the hooks 'before_each' and 'after_each') are
 
 ---
 (c) 2022 David SPORN
+
 ---
 PIRUPY is free software: you can redistribute it and/or modify it under the terms of
 the GNU General Public License as published by the Free Software Foundation, either
@@ -125,4 +126,5 @@ PURPOSE. See the GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License along with PIRUPY.
 If not, see <https://www.gnu.org/licenses/>. 
+
 ---
