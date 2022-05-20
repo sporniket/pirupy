@@ -134,6 +134,16 @@ pipeline_before_each = []
 pipeline_after_each = []
 pipeline_after_all = []
 
+def _reset_globals():
+    global pipeline_exec, pipeline_jobs, pipeline_before_all, pipeline_before_each, pipeline_after_each, pipeline_after_all
+    pipeline_exec = None
+    pipeline_jobs = []
+    pipeline_before_all = []
+    pipeline_before_each = []
+    pipeline_after_each = []
+    pipeline_after_all = []
+
+
 def _register_func(registry:list, func, stage:str=''):
     item = {
         'func':func,
@@ -168,26 +178,26 @@ def pipeline(_func=None, *, stages: tuple):
     def decorator_pipeline(func):
         def wrapper_pipeline(*args, **kwargs):
             LOGGER.info(f"===[ START OF PIPELINE {func.__name__} ]===")
-            result = func(*args, **kwargs)
+            env_pipeline = func(*args, **kwargs)
             for befa in pipeline_before_all:
-                befa['func'](env=result)
+                befa['func'](env=env_pipeline)
             for stage in stages:
                 LOGGER.info(f"======[ START OF STAGE {stage} ]======")
                 jobs = [j for j in pipeline_jobs if j['stage'] == stage or j['stage'] == '']
                 before_each = [j for j in pipeline_before_each if j['stage'] == stage or j['stage'] == '']
                 after_each = [j for j in pipeline_after_each if j['stage'] == stage or j['stage'] == '']
                 for job in jobs:
-                    env = copy.deepcopy(result)
+                    env_job = copy.deepcopy(env_pipeline)
                     for befe in before_each:
-                        befe['func'](env=env)
-                    job['func'](env=env)
+                        befe['func'](env=env_job)
+                    job['func'](env=env_job)
                     for afte in after_each:
-                        afte['func'](env=env)
+                        afte['func'](env=env_job)
                 LOGGER.info(f"======[ END OF STAGE {stage} ]======")
             for afta in pipeline_after_all:
-                afta['func'](env=env)
+                afta['func'](env=env_pipeline)
             LOGGER.info(f"===[ END OF PIPELINE {func.__name__} ]===")
-            return result
+            return env_pipeline
         return wrapper_pipeline
     global pipeline_exec
     if _func is None:
